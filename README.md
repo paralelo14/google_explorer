@@ -36,6 +36,7 @@ I have some old videos on my channel on youtube showing how it works, so take a 
 These are the current options for this project:
 
 Usage:
+
     google_explorer.py --dork=<arg> --browser=<arg> [--exploit_parser=<arg>] [--language=<arg>]
                                                     [--location=<arg>]       [--last_update=<arg>]
                                                     [--revshell=<arg>]       [--port=<arg>]
@@ -45,16 +46,19 @@ Usage:
     google_explorer.py --version
 
 Options:
+
     -h --help                                Open help menu
     -v --version                             Show version
 
 Required options:
+
     --dork='google dork'                     your favorite g00gle dork :)
     --browser='browser'                      chrome
                                              chromium
 
 
 Optional options:
+
     --language='page language'               Portuguese
                                              English
                                              Arabic

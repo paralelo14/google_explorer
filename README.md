@@ -33,7 +33,56 @@ All these options are possible to any language, it will depends only in what goo
 I have some old videos on my channel on youtube showing how it works, so take a look at the description of the olders projects in github if you need some video exemples ;))
 
 
+These are the current options for this project:
 
+Usage:
+    google_explorer.py --dork=<arg> --browser=<arg> [--exploit_parser=<arg>] [--language=<arg>]
+                                                    [--location=<arg>]       [--last_update=<arg>]
+                                                    [--revshell=<arg>]       [--port=<arg>]
+                                                    [--google_domain=<arg>]
+
+    google_explorer.py --help
+    google_explorer.py --version
+
+Options:
+    -h --help                                Open help menu
+    -v --version                             Show version
+
+Required options:
+    --dork='google dork'                     your favorite g00gle dork :)
+    --browser='browser'                      chrome
+                                             chromium
+
+
+Optional options:
+    --language='page language'               Portuguese
+                                             English
+                                             Arabic
+                                             Romanian
+                                             ...
+                                             ...
+    
+    --location='server location'             Brazil
+                                             Mauritania
+                                             Tunisia
+                                             Marroco
+                                             Japan
+                                             ...
+                                             ...
+    
+    --last_update='page last update'         anytime
+                                             past 24 hours
+                                             past week
+                                             past month
+                                             past year
+
+    --exploit_parser='Name or CVE exploit'   joomla_15_12_2015_rce
+                                             joomla_aicontactsafe
+
+    --revshell='IP'                          public ip for reverse shell
+    --port='PORT'                            port for back connect
+
+    --google_domain='google domain'          google domain to use on search. Ex: google.co.uk
 
 
 

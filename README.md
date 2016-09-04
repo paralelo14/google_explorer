@@ -81,6 +81,7 @@ Optional options:
                                              past year
 
     --exploit_parser='Name or CVE exploit'   joomla_15_12_2015_rce
+                                             generic_parser
 
     --revshell='IP'                          public ip for reverse shell
     --port='PORT'                            port for back connect

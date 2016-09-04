@@ -239,7 +239,7 @@ class GoogleScanner:
                     if res not in targets_list:
                         targets_list.append(res)
 
-            if len(targets_list) > 0 and not f['exploit_parser']:
+            if len(targets_list) > 0 and f['exploit_parser'] == 'generic_parser':
                 google_parsers.generic_parser(results)
 
             try:
@@ -323,7 +323,7 @@ def main():
         google_domain = arguments['--google_domain']
 
         # Checking if exploit option exist on exploit parser list
-        exploit_list = ['joomla_15_12_2015_rce']
+        exploit_list = ['joomla_15_12_2015_rce', 'generic_parser']
         if exploit_parser and exploit_parser not in exploit_list:
             print("\n[####] Exploit parser not found in exploit list, please check options [####]\n")
             print('Your current options are: ')

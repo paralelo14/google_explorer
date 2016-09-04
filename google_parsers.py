@@ -43,9 +43,7 @@ def remove_duplicate_targets(results):
 """
 Generic parser, only gets the url from results and save it to generic_results.txt
 """
-def generic_parser(filename):
-    # Converting file to list
-    results = [line.rstrip('\n') for line in open(filename)]
+def generic_parser(results):
     
     # Removing duplicate targets
     url_lists = remove_duplicate_targets(results)

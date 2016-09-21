@@ -128,7 +128,7 @@ class GoogleScanner:
         advanced_search_option = "//*[@id='ab_as' and @href[contains(.,'/advanced_search')]]"
         driver = self.driver
         driver.wait.until(EC.presence_of_element_located((By.XPATH, tools_button))).click()
-        time.sleep(0.5)
+        time.sleep(1)
         driver.wait.until(EC.presence_of_element_located((By.XPATH, advanced_search_option))).click()
 
     def wait_for_presence(self, xpath):

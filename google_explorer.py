@@ -253,7 +253,8 @@ class GoogleScanner:
 
     def check_google_domain(self, google_domain):
         google_url = 'http://www.google.com.br'
-        google_domains_list = open('google_domains.txt').read().splitlines()
+        google_domains_list = open('utils/google_domains.txt'
+                                   ).read().splitlines()
 
         url_parsed = urlparse(google_domain)
 

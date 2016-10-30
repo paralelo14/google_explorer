@@ -68,12 +68,19 @@ Run the exploit parsers to check if results can or not be vulnerable:
 
     $ python joomla_cve_2015_8562.py
 
-Run the exploiter.py:
+Run the exploiter.py (if the original exploit is runned by command line - READ THE EXPLOIT):
 
     $ cd exploits
 
     $ python exploiter.py --file <vuln file>
     
+
+**Exploits**
+
+I'm using exploits from other authors, so don't take their credit on that! I put the same public exploit published, and i DON'T TAKE THE AUTHOR NAME FROM IT!! So any help with the exploit, you can look for the author =))
+
+
+
     
     
 

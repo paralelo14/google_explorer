@@ -124,6 +124,8 @@ class Joomla_CVE_2016_8870():
 def main():
     filename = '../google_results.txt'
     Joomla_CVE_2016_8870(filename)
+    print('[+] \033[31mThe results of this parser can be exploited '
+          'by\033[33m ../exploits/exploiter.py\033[39m\n')
 
 
 if __name__ == '__main__':

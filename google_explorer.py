@@ -72,14 +72,10 @@ class GoogleScanner:
     @staticmethod
     def banner():
         os.system('clear')
-        print("\n")
-        print(" █████╗ ███╗   ██╗ █████╗ ██████╗  ██████╗ ██████╗ ██████╗ ███████╗██████╗ ")
-        print("██╔══██╗████╗  ██║██╔══██╗██╔══██╗██╔════╝██╔═══██╗██╔══██╗██╔════╝██╔══██╗")
-        print("███████║██╔██╗ ██║███████║██████╔╝██║     ██║   ██║██║  ██║█████╗  ██████╔╝")
-        print("██╔══██║██║╚██╗██║██╔══██║██╔══██╗██║     ██║   ██║██║  ██║██╔══╝  ██╔══██╗")
-        print("██║  ██║██║ ╚████║██║  ██║██║  ██║╚██████╗╚██████╔╝██████╔╝███████╗██║  ██║")
-        print("╚═╝  ╚═╝╚═╝  ╚═══╝╚═╝  ╚═╝╚═╝  ╚═╝ ╚═════╝ ╚═════╝ ╚═════╝ ╚══════╝╚═╝  ╚═╝")
-        print("\t  g00gle maSS ExPLOReR - anarcoder at protonmail.com\n")
+        with open('utils/banner.txt') as f:
+            for l in f.readlines():
+                print(l.rstrip())
+        print('\n')
 
     def __init__(self, dork, browser, filters):
         self.dork = dork
@@ -110,19 +106,28 @@ class GoogleScanner:
         opts = Options()
         opts.binary_location = browser_path
         driver = webdriver.Chrome(chrome_options=opts)
-        driver.wait = WebDriverWait(driver, 20)
+        driver.wait = WebDriverWait(driver, 8.5)
         return driver
 
     def go_to_advanced_search_page(self):
-        tools_button = "//*[@id='ab_opt_icon']"
-        advanced_search_option = "//*[@id='ab_as' and "\
-                                 "@href[contains(.,'/advanced_search')]]"
+        time.sleep(2)
         driver = self.driver
-        driver.wait.until(EC.presence_of_element_located((
-            By.XPATH, tools_button))).click()
-        time.sleep(1)
-        driver.wait.until(EC.presence_of_element_located((
-            By.XPATH, advanced_search_option))).click()
+        options = {'first': {'tools_button': "//*[@id='ab_opt_icon']",
+                             'advanced_search_option': "//*[@id='ab_as"
+                             "and @href[contains(.,'/advanced_search')]]"},
+                   'second': {'tools_button': "//*[@id='abar_button_opt']",
+                              'advanced_search_option': "//g-menu-item"
+                              "//div/a[contains(@href,'advanced')]"}}
+        for key, value in options.items():
+            try:
+                driver.wait.until(EC.presence_of_element_located((
+                    By.XPATH, value['tools_button']))).click()
+                time.sleep(1)
+                driver.wait.until(EC.presence_of_element_located((
+                    By.XPATH, value['advanced_search_option']))).click()
+                break
+            except:
+                pass
 
     def wait_for_presence(self, xpath):
         return self.driver.wait.until(EC.presence_of_element_located((

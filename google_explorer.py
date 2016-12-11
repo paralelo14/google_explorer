@@ -72,14 +72,10 @@ class GoogleScanner:
     @staticmethod
     def banner():
         os.system('clear')
-        print("\n")
-        print(" █████╗ ███╗   ██╗ █████╗ ██████╗  ██████╗ ██████╗ ██████╗ ███████╗██████╗ ")
-        print("██╔══██╗████╗  ██║██╔══██╗██╔══██╗██╔════╝██╔═══██╗██╔══██╗██╔════╝██╔══██╗")
-        print("███████║██╔██╗ ██║███████║██████╔╝██║     ██║   ██║██║  ██║█████╗  ██████╔╝")
-        print("██╔══██║██║╚██╗██║██╔══██║██╔══██╗██║     ██║   ██║██║  ██║██╔══╝  ██╔══██╗")
-        print("██║  ██║██║ ╚████║██║  ██║██║  ██║╚██████╗╚██████╔╝██████╔╝███████╗██║  ██║")
-        print("╚═╝  ╚═╝╚═╝  ╚═══╝╚═╝  ╚═╝╚═╝  ╚═╝ ╚═════╝ ╚═════╝ ╚═════╝ ╚══════╝╚═╝  ╚═╝")
-        print("\t  g00gle maSS ExPLOReR - anarcoder at protonmail.com\n")
+        with open('utils/banner.txt') as f:
+            for l in f.readlines():
+                print(l.rstrip())
+        print('\n')
 
     def __init__(self, dork, browser, filters):
         self.dork = dork
@@ -110,7 +106,7 @@ class GoogleScanner:
         opts = Options()
         opts.binary_location = browser_path
         driver = webdriver.Chrome(chrome_options=opts)
-        driver.wait = WebDriverWait(driver, 10)
+        driver.wait = WebDriverWait(driver, 8.5)
         return driver
 
     def go_to_advanced_search_page(self):

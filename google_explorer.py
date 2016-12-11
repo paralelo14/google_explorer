@@ -129,6 +129,7 @@ class GoogleScanner:
                 time.sleep(1)
                 driver.wait.until(EC.presence_of_element_located((
                     By.XPATH, value['advanced_search_option']))).click()
+                break
             except:
                 pass
 

@@ -55,24 +55,44 @@ Optional options:
                                              Ex: google.co.uk
 
 
+**Instalation:**
+
+This project is developed in PYTHON 3. Make sure u use pip3 (package: python3-pip) to install dep:
+
+    $ sudo pip3 install -r requirements
+
+
+Make sure u have installed chromedriver, if you don't have this tutorial can help:
+
+    https://developers.supportbee.com/blog/setting-up-cucumber-to-run-with-Chrome-on-Linux/
+
+
+In some distro, i had some issues with users running chrome as root.. **TO AVOID ISSUES, RUN THE TOOL AS REGULAR USER!!**
+
+
+
 **How to use:**
 
-Make a search with google bot:
+Make a search with google bot, here are some examples:
 
-    python google_explorer.py --browser='chrome' --dork='site:gob.ve inurl:index.php' --location="Venezuela"
+    python3 google_explorer.py --browser='chrome' --dork='site:gob.ve inurl:index.php' --location="Venezuela"
+    python3 google_explorer.py --dork="index.php?option=" --browser="chrome" --google_domain="google.co.il" --location="איחוד האמירויות הערביות"
+    python3 google_explorer.py --browser='chrome' --dork='inurl:index.php?option' --location="Rússia" --last_update='na última semana'
     
 
-Run the exploit parsers to check if results can or not be vulnerable:
+Run the exploit filter for the specific vulnerability u are looking for, to check if results can or not be vulnerable:
 
-    $ cd xpl_parsers
+    $ cd xpl_filters
+    $ python3 joomla_cve_2015_8562.py
+    
 
-    $ python joomla_cve_2015_8562.py
+The possible vulnerable targets can be explored using some utils scripts i made, or you can run the exploit as u wish:
 
-Run the exploiter.py (if the original exploit is runned by command line - READ THE EXPLOIT):
+Run the exploiter.py (if the original exploit is runned by command line - **READ THE EXPLOIT BEFORE USING IT**):
 
     $ cd exploits
 
-    $ python exploiter.py --file <vuln file>
+    $ python2 exploiter.py --file <vuln file>
     
 
 **Exploits**

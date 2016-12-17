@@ -72,10 +72,35 @@ class GoogleScanner:
     @staticmethod
     def banner():
         os.system('clear')
-        with open('utils/banner.txt') as f:
-            for l in f.readlines():
-                print(l.rstrip())
-        print('\n')
+        print("\033[34m          .,:::.")
+        print("\033[34m        ,,::::::,:`                                                     \033[32m:;;,")
+        print("\033[34m      ,:,:,,::,,::::                                                    \033[32m:;;:")
+        print("\033[34m     :,,,:,.  `,:,,,,                                                   \033[32m:;;:")
+        print("\033[34m    :,,,:        ,,,                                                    \033[32m:;;:")
+        print("\033[34m   ,::,,          `                                                     \033[32m:;;:")
+        print("\033[34m   ::,,                                                                 \033[32m:;;,")
+        print("\033[34m  .:::                                                                  \033[32m:;;,")
+        print("\033[34m  ::,,                       \033[31m`:::,`          \033[33m`,,,.`          \033[34m.,:,       \033[32m:;;,     \033[31m`:::,")
+        print("\033[34m  :::                      \033[31m`;;;;;:;;       \033[33m.:::::::,       \033[34m.:,::,:,:,:  \033[32m:;;:   \033[31m`;:;;;;:.")
+        print("\033[34m  :,:        ..........`  \033[31m`;;:::;;;;;`    \033[33m.:::::::::,`    \033[34m,::,,::,:,::  \033[32m:;;:  \033[31m`;;;;;;;;;,")
+        print("\033[34m  :::        ::,:,,::::,  \033[31m;;;;`  .;;;;   \033[33m`:::,```.:::,   \033[34m`,,,,   ,,:,:  \033[32m:;;:  \033[31m;;;:`  .:;;`")
+        print("\033[34m  :,:        ::,::,,,::, \033[31m:::;     `;;;,  \033[33m,::,     `:::`  \033[34m,,:,     ,:::  \033[32m:;;, \033[31m.;;:     ,;;;")
+        print("\033[34m  :,:        ,,,,,,,,,:, \033[31m;;;`      .::: \033[33m`::,       .::, \033[34m`:,:       :,:  \033[32m:;;, \033[31m:;;`   ,;;;:;")
+        print("\033[34m  :,:,              ,:,.\033[31m`;;;        ;;: \033[33m.::,       `::: \033[34m,::,       ,::  \033[32m:;;: \033[31m;;; `:;;;;;.")
+        print("\033[34m  .,::              ::: \033[31m`;:;        :;; \033[33m.::,        ,:, \033[34m,::.       ,,:  \033[32m:;;: \033[31m;;;;;;;::`")
+        print("\033[34m   :,:,            .::: \033[31m`;;;        ;;; \033[33m.::,       `::, \033[34m,::,       ,,:  \033[32m:;;: \033[31m;;;;;;,")
+        print("\033[34m   ,,,:.          `:,,.  \033[31m:;;`      `;;; \033[33m`:::       .::, \033[34m`::,       :,,  \033[32m:;;: \033[31m;;;;`")
+        print("\033[34m    :::::        .,,,:   \033[31m:;;;      ::::  \033[33m,::,     `,::`  \033[34m,::.     .:::  \033[32m:;;, \033[31m.;;:      :,")
+        print("\033[34m     ::,,::`  `,:,::,     \033[31m;;;;`  `;:;:   \033[33m`:::,`  .:::,   \033[34m.,:,,   ,,,::  \033[32m:;;:  \033[31m;;:;`  `;;;;")
+        print("\033[34m      ,:,:,::,,:,,::      \033[31m.;;::;:;:::`    \033[33m.::::::::::`    \033[34m,:,,,:,:::,:  \033[32m:;;:  \033[31m`;;:;:;:;;;.")
+        print("\033[34m       `:::::,,:,,.        \033[31m`;:;;;;;;`      \033[33m.:::::::,`      \033[34m,,,,:,,,:,,  \033[32m:;;,    \033[31m:;;;;;;;`")
+        print("\033[34m          .::::,`            \033[31m`::;:`          \033[33m.,,,,`          \033[34m,:::` :::  \033[32m````     \033[31m`:;;;.")
+        print("                                                                   \033[34m:,:")
+        print("                                                          \033[34m,,       ,,:")
+        print("                   \033[0meXPloReR - v0.1 - 2016                \033[34m::,:     ,::,")
+        print("                \033[0manarcoder at protonmail.com               \033[34m,,:,,.,:,::")
+        print("                \033[0m    github.com/anarcoder                  \033[34m`:,,:,:,,,`")
+        print("                                                            \033[34m::::,:,\033[0m")
 
     def __init__(self, dork, browser, filters):
         self.dork = dork
@@ -105,8 +130,20 @@ class GoogleScanner:
 
         opts = Options()
         opts.binary_location = browser_path
-        driver = webdriver.Chrome(chrome_options=opts)
-        driver.wait = WebDriverWait(driver, 8.5)
+        try:
+            driver = webdriver.Chrome(chrome_options=opts)
+        except Exception as e:
+            print('\n[#] Error [#]: Error while using chromedriver.\n\n'
+                  'These are some possible solutions for this issue:\n\n'
+                  '- Please install/update chormedriver.'
+                  ' Check out this link for help: https://developers.'
+                  'supportbee.com/blog/setting-up-cucumber-to-run'
+                  '-with-Chrome-on-Linux/\n- Do not run the tool as root '
+                  'user, like is described in this issue: https://github.com'
+                  '/anarcoder/google_explorer/issues/2\n\n')
+            print(str(e))
+            sys.exit(1)
+        driver.wait = WebDriverWait(driver, 40)
         return driver
 
     def go_to_advanced_search_page(self):

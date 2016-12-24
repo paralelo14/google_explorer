@@ -5,7 +5,7 @@ Usage:
                                                     [--location=<arg>]
                                                     [--last_update=<arg>]
                                                     [--google_domain=<arg>]
-
+    google_explorer.py --xpl_filter=<arg>
     google_explorer.py --help
     google_explorer.py --version
 
@@ -17,7 +17,9 @@ Required options:
     --dork='google dork'                     your favorite g00gle dork :)
     --browser='browser'                      chrome
                                              chromium
-
+    --xpl_filter='exploits filters list'     joomla_cve_2015_8562
+                                             wordpress_cve_2015_1579
+                                             joomla_cve_2016_8870
 
 Optional options:
     --language='page language'               Portuguese
@@ -44,12 +46,13 @@ Optional options:
     --google_domain='google domain'          google domain to use on search.
                                              Ex: google.co.uk
 
-
 """
 
 import os
 import sys
 import time
+
+from xpl_filters.xpl_filter import XplFilter
 
 from docopt import docopt, DocoptExit
 from lxml import html as lh
@@ -143,7 +146,7 @@ class GoogleScanner:
                   '/anarcoder/google_explorer/issues/2\n\n')
             print(str(e))
             sys.exit(1)
-        driver.wait = WebDriverWait(driver, 40)
+        driver.wait = WebDriverWait(driver, 90)
         return driver
 
     def go_to_advanced_search_page(self):
@@ -279,7 +282,7 @@ class GoogleScanner:
             options = lh.fromstring(content)
             results = [link for link in options.xpath(links_xpath)]
 
-            self.write_results_to_file(results, 'google_results.txt')
+            self.write_results_to_file(results, 'results_google_search.txt')
 
             try:
                 next_page = driver.find_element_by_id("pnnext")
@@ -350,6 +353,7 @@ def main():
         arguments = docopt(__doc__, version="anarc0der Google Explorer - 2016")
         dork = arguments['--dork']
         browser = arguments['--browser']
+        xpl_filters = arguments['--xpl_filter']
         filters = {name: arguments['--%s' % name] for name in filter_names}
 
     except DocoptExit as e:
@@ -357,8 +361,14 @@ def main():
         os.system('python google_explorer.py --help')
         sys.exit(1)
 
+    if xpl_filters:
+        Apply_Xpl_Filters = XplFilter(xpl_filters)
+        sys.exit(0)
+
     myScan = GoogleScanner(dork, browser, filters)
     myScan.start_search()
+    
+
 
 
 if __name__ == '__main__':

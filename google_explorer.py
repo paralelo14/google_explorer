@@ -5,9 +5,7 @@ Usage:
                                                     [--location=<arg>]
                                                     [--last_update=<arg>]
                                                     [--google_domain=<arg>]
-    
     google_explorer.py --xpl_filter=<arg>
-
     google_explorer.py --help
     google_explorer.py --version
 
@@ -19,11 +17,9 @@ Required options:
     --dork='google dork'                     your favorite g00gle dork :)
     --browser='browser'                      chrome
                                              chromium
-
     --xpl_filter='exploits filters list'     joomla_cve_2015_8562
                                              wordpress_cve_2015_1579
                                              joomla_cve_2016_8870
-
 
 Optional options:
     --language='page language'               Portuguese

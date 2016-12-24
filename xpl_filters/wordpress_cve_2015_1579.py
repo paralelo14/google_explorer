@@ -102,7 +102,7 @@ class Wordpress_CVE_2015_1579():
 
 
 def main():
-    filename = '../google_results.txt'
+    filename = 'results_google_search.txt'
     Wordpress_CVE_2015_1579(filename)
 
 

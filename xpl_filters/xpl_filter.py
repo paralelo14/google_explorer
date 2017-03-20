@@ -27,7 +27,8 @@ class XplFilter():
             print("\033[33mNone of the xpl filters you choose "
                   "was found!!\033[0m\n")
             print("The current options are:\n")
-            [print(xpl) for xpl in xpl_list]
+            for xpl in xpl_list:
+                print(xpl)
             sys.exit(1)
 
     def run_filter(self):

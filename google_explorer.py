@@ -297,6 +297,7 @@ class GoogleScanner:
         driver.close()
 
     def check_google_domain(self, google_domain):
+        from urllib.parse import urlparse
         google_url = 'http://www.google.com.br'
         google_domains_list = open('utils/google_domains.txt'
                                    ).read().splitlines()

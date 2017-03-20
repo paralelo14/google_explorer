@@ -60,6 +60,11 @@ Optional options:
 
 **Instalation:**
 
+Install these packages:
+
+    libxml2-dev libxslt1-dev python-dev
+
+
 This project is developed in PYTHON 3.6 Make sure u use pip3 (package: python3-pip) to install dep:
 
     $ sudo pip3 install -r requirements

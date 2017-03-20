@@ -58,7 +58,7 @@ from xpl_filters.xpl_filter import XplFilter
 from docopt import docopt, DocoptExit
 from lxml import html as lh
 
-from urllib.parse import urlparse
+import urllib
 
 from selenium import webdriver
 from selenium.webdriver.common.by import By
@@ -368,7 +368,7 @@ def main():
 
     myScan = GoogleScanner(dork, browser, filters)
     myScan.start_search()
-    
+
 
 
 

@@ -15,9 +15,7 @@ class XplFilter():
         self.run_filter()
 
     def validate_xpl_filters(self):
-        xpl_list = [''.join(file.name.split('.')[0]) for file in os.scandir(
-            PATH) if not file.name.startswith('.') and file.is_file() and
-            'xpl_filter' not in file.name]
+        xpl_list = [f.rsplit(".")[0] for f in os.listdir(PATH)]
         filters = self.filters.split(',')
         exploits = list(set(filters).intersection(set(xpl_list)))
         if exploits:

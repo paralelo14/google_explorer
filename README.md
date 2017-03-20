@@ -1,4 +1,4 @@
-**[+] Google Mass Explorer (PYTHON 3)**
+**[+] Google Mass Explorer (PYTHON 3.6)**
 
 This is a automated robot for google search engine.
 
@@ -60,7 +60,7 @@ Optional options:
 
 **Instalation:**
 
-This project is developed in PYTHON 3. Make sure u use pip3 (package: python3-pip) to install dep:
+This project is developed in PYTHON 3.6 Make sure u use pip3 (package: python3-pip) to install dep:
 
     $ sudo pip3 install -r requirements
 

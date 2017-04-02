@@ -5,6 +5,7 @@ Usage:
                                                     [--location=<arg>]
                                                     [--last_update=<arg>]
                                                     [--google_domain=<arg>]
+                                                    [--proxy=<arg>]
     google_explorer.py --xpl_filter=<arg>
     google_explorer.py --help
     google_explorer.py --version
@@ -47,6 +48,8 @@ Optional options:
     --google_domain='google domain'          google domain to use on search.
                                              Ex: google.co.uk
 
+    --proxy='ip:port'                        proxy ip:port
+
 """
 
 import os
@@ -68,7 +71,7 @@ from selenium.webdriver.chrome.options import Options
 from selenium.webdriver.support.ui import WebDriverWait
 
 
-filter_names = ['language', 'location', 'last_update', 'google_domain']
+filter_names = ['language', 'location', 'last_update', 'google_domain', 'proxy']
 
 
 class GoogleScanner:
@@ -115,6 +118,7 @@ class GoogleScanner:
     def validate_browser(self):
         browser = self.browser
         browser_path = ''
+        f = self.filters
 
         browsers_names = ['chrome', 'chromium']
 
@@ -134,6 +138,10 @@ class GoogleScanner:
 
         opts = Options()
         opts.binary_location = browser_path
+
+        if f['proxy']:
+            opts.add_argument('--proxy-server=%s' % f['proxy'])
+
         try:
             driver = webdriver.Chrome(chrome_options=opts)
         except Exception as e:

@@ -12,6 +12,7 @@ Usage:
                                                     [--location=<arg>]
                                                     [--last_update=<arg>]
                                                     [--google_domain=<arg>]
+                                                    [--proxy=<arg>]
     google_explorer.py --xpl_filter=<arg>
     google_explorer.py --help
     google_explorer.py --version
@@ -29,6 +30,7 @@ Required options:
     --xpl_filter='exploits filters list'     joomla_cve_2015_8562
                                              wordpress_cve_2015_1579
                                              joomla_cve_2016_8870
+                                             apache_rce_struts2_cve_2017_5638
 
 Optional options:
 
@@ -55,6 +57,8 @@ Optional options:
 
     --google_domain='google domain'          google domain to use on search.
                                              Ex: google.co.uk
+    
+    --proxy='ip:port'                        proxy ip:port
 
 
 
@@ -90,10 +94,12 @@ Make a search with google bot, here are some examples:
 
 Run the exploit filter for the specific vulnerability u are looking for, to check if results can or not be vulnerable:
 
-    $ python3 joomla_cve_2015_8562.py --xpl_filter='joomla_cve_2015_8562'
+    $ python3 google_explorer.py --xpl_filter='joomla_cve_2015_8562'
+    $ python3 google_explorer.py --xpl_filter='apache_rce_struts2_cve_2017_5638'
+    $ python3 google_explorer.py --xpl_filter='exploit filter name from list'
     
 
-The possible vulnerable targets can be explored using some utils scripts i made, or you can run the exploit as u wish:
+For some exploits i'm making some utils script to help the exploitation. But not ready yet.. :)
 
 Run the exploiter.py (if the original exploit is runned by command line - **READ THE EXPLOIT BEFORE USING IT**):
 

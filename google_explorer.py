@@ -165,8 +165,8 @@ class GoogleScanner:
                              'advanced_search_option': "//*[@id='ab_as"
                              "and @href[contains(.,'/advanced_search')]]"},
                    'second': {'tools_button': "//*[@id='abar_button_opt']",
-                              'advanced_search_option': "//g-menu-item"
-                              "//div/a[contains(@href,'advanced')]"}}
+                              'advanced_search_option': "//div/"
+                              "a[contains(@href,'advanced')]"}}
         for key, value in options.items():
             try:
                 driver.find_element(By.XPATH, value['tools_button']).click()

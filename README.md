@@ -82,6 +82,8 @@ This project is developed in PYTHON 3.6 Make sure u use pip3 (package: python3-p
 Make sure u have installed chromedriver, if you don't have this tutorial can help:
 
     https://developers.supportbee.com/blog/setting-up-cucumber-to-run-with-Chrome-on-Linux/
+    
+    Install this version for stability: http://chromedriver.storage.googleapis.com/index.html?path=2.24/
 
 
 In some distro, i had some issues with users running chrome as root.. **TO AVOID ISSUES, RUN THE TOOL AS REGULAR USER!!**

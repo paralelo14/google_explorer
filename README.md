@@ -35,6 +35,8 @@ Required options:
                                              wordpress_cve_2015_1579
                                              joomla_cve_2016_8870
                                              apache_rce_struts2_cve_2017_5638
+                                             jboss_finder
+                                             cors_misc
 
 Optional options:
 

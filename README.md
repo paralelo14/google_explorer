@@ -17,7 +17,7 @@ Usage:
                                                     [--last_update=<arg>]
                                                     [--google_domain=<arg>]
                                                     [--proxy=<arg>]
-    google_explorer.py --xpl_filter=<arg>
+    google_explorer.py --plugin=<arg>
     google_explorer.py --help
     google_explorer.py --version
 

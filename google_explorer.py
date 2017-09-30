@@ -22,6 +22,7 @@ Required options:
                                              joomla_cve_2016_8870
                                              apache_rce_struts2_cve_2017_5638
                                              jboss_finder
+                                             cors_misc
 
 Optional options:
     --language='page language'               Portuguese

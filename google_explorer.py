@@ -1,12 +1,11 @@
 """
 Usage:
-    google_explorer.py --dork=<arg> --browser=<arg> [--exploit_parser=<arg>]
-                                                    [--language=<arg>]
+    google_explorer.py --dork=<arg> --browser=<arg> [--language=<arg>]
                                                     [--location=<arg>]
                                                     [--last_update=<arg>]
                                                     [--google_domain=<arg>]
                                                     [--proxy=<arg>]
-    google_explorer.py --xpl_filter=<arg>
+    google_explorer.py --plugin=<arg>
     google_explorer.py --help
     google_explorer.py --version
 
@@ -18,7 +17,7 @@ Required options:
     --dork='google dork'                     your favorite g00gle dork :)
     --browser='browser'                      chrome
                                              chromium
-    --xpl_filter='exploits filters list'     joomla_cve_2015_8562
+    --plugin='plugins filters list'          joomla_cve_2015_8562
                                              wordpress_cve_2015_1579
                                              joomla_cve_2016_8870
                                              apache_rce_struts2_cve_2017_5638
@@ -56,12 +55,10 @@ import os
 import sys
 import time
 
-from xpl_filters.xpl_filter import XplFilter
+from plugins.pl_filter import Plugins
 
 from docopt import docopt, DocoptExit
 from lxml import html as lh
-
-import urllib
 
 from selenium import webdriver
 from selenium.webdriver.common.by import By
@@ -71,7 +68,8 @@ from selenium.webdriver.chrome.options import Options
 from selenium.webdriver.support.ui import WebDriverWait
 
 
-filter_names = ['language', 'location', 'last_update', 'google_domain', 'proxy']
+filter_names = ['language', 'location', 'last_update',
+                'google_domain', 'proxy']
 
 
 class GoogleScanner:
@@ -174,7 +172,7 @@ class GoogleScanner:
                 driver.find_element(By.XPATH,
                                     value['advanced_search_option']).click()
                 break
-            except:
+            except Exception as e:
                 pass
 
     def wait_for_presence(self, xpath):
@@ -252,7 +250,7 @@ class GoogleScanner:
                 By.XPATH, navigation_bar_xpath)))
             captcha = 'xxx'
             return captcha
-        except:
+        except Exception as e:
             captcha = None
             return captcha
             pass
@@ -280,7 +278,7 @@ class GoogleScanner:
             driver.wait.until(EC.presence_of_element_located((
                 By.ID, "pnnext")))
             next_page = driver.find_element_by_id("pnnext")
-        except:
+        except Exception as e:
             next_page = 'xxx'
             pass
 
@@ -299,7 +297,7 @@ class GoogleScanner:
                 time.sleep(2)
                 driver.wait.until(EC.presence_of_element_located((
                     By.XPATH, ".//*[@id='nav']")))
-            except:
+            except Exception as e:
                 break
 
         driver.close()
@@ -346,7 +344,7 @@ class GoogleScanner:
         try:
             driver.wait.until(EC.presence_of_element_located((
                 By.XPATH, "//*[@id='nav']")))
-        except:
+        except Exception as e:
             sys.exit(1)
 
         # Apply filters in arguments if necessary
@@ -363,7 +361,7 @@ def main():
         arguments = docopt(__doc__, version="anarc0der Google Explorer - 2016")
         dork = arguments['--dork']
         browser = arguments['--browser']
-        xpl_filters = arguments['--xpl_filter']
+        pl_filters = arguments['--plugin']
         filters = {name: arguments['--%s' % name] for name in filter_names}
 
     except DocoptExit as e:
@@ -371,14 +369,12 @@ def main():
         os.system('python google_explorer.py --help')
         sys.exit(1)
 
-    if xpl_filters:
-        Apply_Xpl_Filters = XplFilter(xpl_filters)
+    if pl_filters:
+        Plugins(pl_filters)
         sys.exit(0)
 
     myScan = GoogleScanner(dork, browser, filters)
     myScan.start_search()
-
-
 
 
 if __name__ == '__main__':

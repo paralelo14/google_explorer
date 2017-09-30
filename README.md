@@ -12,8 +12,7 @@ The options can be listed with --help parameter.
 
 Usage:
 
-    google_explorer.py --dork=<arg> --browser=<arg> [--exploit_parser=<arg>]
-                                                    [--language=<arg>]
+    google_explorer.py --dork=<arg> --browser=<arg> [--language=<arg>]
                                                     [--location=<arg>]
                                                     [--last_update=<arg>]
                                                     [--google_domain=<arg>]
@@ -32,7 +31,7 @@ Required options:
     --dork='google dork'                     your favorite g00gle dork :)
     --browser='browser'                      chrome
                                              chromium
-    --xpl_filter='exploits filters list'     joomla_cve_2015_8562
+    --plugin='plugins filters list'          joomla_cve_2015_8562
                                              wordpress_cve_2015_1579
                                              joomla_cve_2016_8870
                                              apache_rce_struts2_cve_2017_5638
@@ -83,7 +82,7 @@ Make sure u have installed chromedriver, if you don't have this tutorial can hel
 
     https://developers.supportbee.com/blog/setting-up-cucumber-to-run-with-Chrome-on-Linux/
     
-    Install this version for stability: http://chromedriver.storage.googleapis.com/index.html?path=2.24/
+    !!Install this version for stability: http://chromedriver.storage.googleapis.com/index.html?path=2.24/!!
 
 
 In some distro, i had some issues with users running chrome as root.. **TO AVOID ISSUES, RUN THE TOOL AS REGULAR USER!!**
@@ -101,9 +100,9 @@ Make a search with google bot, here are some examples:
 
 Run the exploit filter for the specific vulnerability u are looking for, to check if results can or not be vulnerable:
 
-    $ python3 google_explorer.py --xpl_filter='joomla_cve_2015_8562'
-    $ python3 google_explorer.py --xpl_filter='apache_rce_struts2_cve_2017_5638'
-    $ python3 google_explorer.py --xpl_filter='exploit filter name from list'
+    $ python3 google_explorer.py --plugin='joomla_cve_2015_8562'
+    $ python3 google_explorer.py --plugin='apache_rce_struts2_cve_2017_5638'
+    $ python3 google_explorer.py --plugin='exploit filter name from list'
     
 
 For some exploits i'm making some utils script to help the exploitation. But not ready yet.. :)
@@ -118,15 +117,3 @@ Run the exploiter.py (if the original exploit is runned by command line - **READ
 **Exploits**
 
 I'm using exploits from other authors, so don't take their credit on that! I put the same public exploit published, and i DON'T TAKE THE AUTHOR NAME FROM IT!! So any help with the exploit, you can look for the author =))
-
-
-
-    
-    
-
-
-
-
-
-
-

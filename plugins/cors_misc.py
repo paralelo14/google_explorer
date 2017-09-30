@@ -10,11 +10,11 @@ requests.packages.urllib3.disable_warnings(InsecureRequestWarning)
 
 lock = threading.Lock()
 
-class JBoss_Finder():
+class Cors_Misc():
 
     def __init__(self, filename):
         self.filename = filename
-        self.urls = self.jboss_f()
+        self.urls = self.cors_m()
 
     @staticmethod
     def banner():
@@ -26,7 +26,7 @@ class JBoss_Finder():
         print("██╔══██║██║╚██╗██║██╔══██║██╔══██╗██║     ██║   ██║██║  ██║██╔══╝  ██╔══██╗")
         print("██║  ██║██║ ╚████║██║  ██║██║  ██║╚██████╗╚██████╔╝██████╔╝███████╗██║  ██║")
         print("╚═╝  ╚═╝╚═╝  ╚═══╝╚═╝  ╚═╝╚═╝  ╚═╝ ╚═════╝ ╚═════╝ ╚═════╝ ╚══════╝╚═╝  ╚═╝")
-        print("              JBoss Finder - anarcoder at protonmail.com\n") 
+        print("          CORS Misconfig Finder - anarcoder at protonmail.com\n") 
 
     def remove_duplicate_targets(self):
         results = [line.rstrip('\n') for line in open(self.filename)]
@@ -48,20 +48,23 @@ class JBoss_Finder():
                 url = q.get()
                 headers = {'User-Agent': 'Mozilla/5.0 (X11; Ubuntu; '
                            'Linux x86_64; rv:41.0) Gecko/20100101 '
-                           'Firefox/41.0'}
+                           'Firefox/41.0', 'Origin':'anarcoder.com'}
+                misconfig = ['anarcoder.com','*','null']
                 try:
                     req = get(url, headers=headers, verify=False, timeout=25)
-                    with open('jboss_sites.txt', 'a+') as f:
-                        if 'JBoss' in req.headers['X-Powered-By']:
+                    with open('cors_sites.txt', 'a+') as f:
+                        if any(m in req.headers['Access-Control-Allow-Origin'] for m in misconfig) and 'true' in req.headers['Access-Control-Allow-Credentials']:
                             print('[+] Target: ' + url)
-                            print('\033[31m[+] JBoss detected on X-Powered-By Header\n\033[0m')
+                            for k, v in req.headers.items():
+                                print(k+':'+v)
+                            print('\n')
                             f.write(req.url + '\n')
                         q.task_done()
                 except Exception as e:
                     q.task_done()
                 q.task_done()
 
-    def jboss_f(self):
+    def cors_m(self):
         self.banner()
 
         # Removing duplicate targets
@@ -78,7 +81,7 @@ class JBoss_Finder():
             q.put(url)
 
         # My threads
-        print('[+] Trying targets.. possible vulnerable will be saved in jboss_sites.txt.. ')
+        print('[+] Trying targets.. possible vulnerable will be saved in cors_sites.txt.. ')
         print('[*] Starting evil threads =)...\n')
         for i in range(num_threads):
             worker = Thread(target=self.check_vuln, args=(q,))
@@ -90,7 +93,7 @@ class JBoss_Finder():
 
 def main():
     filename = 'results_google_search.txt'
-    JBoss_Finder(filename)
+    Cors_Misc(filename)
 
 
 if __name__ == '__main__':

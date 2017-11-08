@@ -78,36 +78,11 @@ class GoogleScanner:
 
     @staticmethod
     def banner():
-        os.system('clear')
-        print("\033[34m          .,:::.")
-        print("\033[34m        ,,::::::,:`                                                     \033[32m:;;,")
-        print("\033[34m      ,:,:,,::,,::::                                                    \033[32m:;;:")
-        print("\033[34m     :,,,:,.  `,:,,,,                                                   \033[32m:;;:")
-        print("\033[34m    :,,,:        ,,,                                                    \033[32m:;;:")
-        print("\033[34m   ,::,,          `                                                     \033[32m:;;:")
-        print("\033[34m   ::,,                                                                 \033[32m:;;,")
-        print("\033[34m  .:::                                                                  \033[32m:;;,")
-        print("\033[34m  ::,,                       \033[31m`:::,`          \033[33m`,,,.`          \033[34m.,:,       \033[32m:;;,     \033[31m`:::,")
-        print("\033[34m  :::                      \033[31m`;;;;;:;;       \033[33m.:::::::,       \033[34m.:,::,:,:,:  \033[32m:;;:   \033[31m`;:;;;;:.")
-        print("\033[34m  :,:        ..........`  \033[31m`;;:::;;;;;`    \033[33m.:::::::::,`    \033[34m,::,,::,:,::  \033[32m:;;:  \033[31m`;;;;;;;;;,")
-        print("\033[34m  :::        ::,:,,::::,  \033[31m;;;;`  .;;;;   \033[33m`:::,```.:::,   \033[34m`,,,,   ,,:,:  \033[32m:;;:  \033[31m;;;:`  .:;;`")
-        print("\033[34m  :,:        ::,::,,,::, \033[31m:::;     `;;;,  \033[33m,::,     `:::`  \033[34m,,:,     ,:::  \033[32m:;;, \033[31m.;;:     ,;;;")
-        print("\033[34m  :,:        ,,,,,,,,,:, \033[31m;;;`      .::: \033[33m`::,       .::, \033[34m`:,:       :,:  \033[32m:;;, \033[31m:;;`   ,;;;:;")
-        print("\033[34m  :,:,              ,:,.\033[31m`;;;        ;;: \033[33m.::,       `::: \033[34m,::,       ,::  \033[32m:;;: \033[31m;;; `:;;;;;.")
-        print("\033[34m  .,::              ::: \033[31m`;:;        :;; \033[33m.::,        ,:, \033[34m,::.       ,,:  \033[32m:;;: \033[31m;;;;;;;::`")
-        print("\033[34m   :,:,            .::: \033[31m`;;;        ;;; \033[33m.::,       `::, \033[34m,::,       ,,:  \033[32m:;;: \033[31m;;;;;;,")
-        print("\033[34m   ,,,:.          `:,,.  \033[31m:;;`      `;;; \033[33m`:::       .::, \033[34m`::,       :,,  \033[32m:;;: \033[31m;;;;`")
-        print("\033[34m    :::::        .,,,:   \033[31m:;;;      ::::  \033[33m,::,     `,::`  \033[34m,::.     .:::  \033[32m:;;, \033[31m.;;:      :,")
-        print("\033[34m     ::,,::`  `,:,::,     \033[31m;;;;`  `;:;:   \033[33m`:::,`  .:::,   \033[34m.,:,,   ,,,::  \033[32m:;;:  \033[31m;;:;`  `;;;;")
-        print("\033[34m      ,:,:,::,,:,,::      \033[31m.;;::;:;:::`    \033[33m.::::::::::`    \033[34m,:,,,:,:::,:  \033[32m:;;:  \033[31m`;;:;:;:;;;.")
-        print("\033[34m       `:::::,,:,,.        \033[31m`;:;;;;;;`      \033[33m.:::::::,`      \033[34m,,,,:,,,:,,  \033[32m:;;,    \033[31m:;;;;;;;`")
-        print("\033[34m          .::::,`            \033[31m`::;:`          \033[33m.,,,,`          \033[34m,:::` :::  \033[32m````     \033[31m`:;;;.")
-        print("                                                                   \033[34m:,:")
-        print("                                                          \033[34m,,       ,,:")
-        print("                   \033[0meXPloReR - v0.1 - 2016                \033[34m::,:     ,::,")
-        print("                \033[0manarcoder at protonmail.com               \033[34m,,:,,.,:,::")
-        print("                \033[0m    github.com/anarcoder                  \033[34m`:,,:,:,,,`")
-        print("                                                            \033[34m::::,:,\033[0m")
+        with open('utils/banner.txt') as f:
+            os.system('clear')
+            for line in f.readlines():
+                print(line.rstrip())
+            print('\n')
 
     def __init__(self, dork, browser, filters):
         self.dork = dork
@@ -117,46 +92,67 @@ class GoogleScanner:
 
     def validate_browser(self):
         browser = self.browser
-        browser_path = ''
         f = self.filters
+        driver = ''
 
-        browsers_names = ['chrome', 'chromium']
+        browsers_names = ['firefox', 'chrome', 'chromium']
+        browsers_paths = {}
+        binarys_path = '/usr/bin/'
 
-        if browser not in browsers_names:
+        for file in os.listdir(binarys_path):
+            for br in browsers_names:
+                if br in file:
+                    browsers_paths[br] = binarys_path + file
+
+        if browser not in browsers_paths.keys():
             print('[###] No option for this browser [###]\n')
             print('Your current options are: \n')
-            for b in browsers_names:
+            for b in browsers_paths.keys():
                 print('- ' + b)
             print("\nIf you dont have any of them sorry for you =)..\n")
             sys.exit(1)
 
-        if browser == 'chromium':
-            browser_path = '/usr/bin/chromium'
+        if 'firefox' in browser:
+            if f['proxy']:
+                profile = webdriver.FirefoxProfile()
+                profile.set_preference("network.proxy.type", 1)
+                profile.set_preference("network.proxy.socks",
+                                       f['proxy'].split(':')[0])
+                profile.set_preference("network.proxy.socks_port",
+                                       int(f['proxy'].split(':')[1]))
+                profile.update_preferences()
+                try:
+                    driver = webdriver.Firefox(firefox_profile=profile)
+                    driver.wait = WebDriverWait(driver, 90)
+                    return driver
+                except Exception as e:
+                    print('[#] Error while executing geckodriver')
+                    print('[#] Install geckodriver or upgrade it!')
+                    print(str(e))
+            else:
+                try:
+                    driver = webdriver.Firefox()
+                    driver.wait = WebDriverWait(driver, 90)
+                    return driver
+                except Exception as e:
+                    print('[#] Error while executing geckodriver')
+                    print('[#] Install geckodriver or upgrade it!')
+                    print(str(e))
+        else:
+            opts = Options()
+            opts.binary_location = browsers_paths[browser]
 
-        if browser == 'chrome':
-            browser_path = '/usr/bin/google-chrome-stable'
+            if f['proxy']:
+                opts.add_argument('--proxy-server=socks5://%s' % f['proxy'])
 
-        opts = Options()
-        opts.binary_location = browser_path
-
-        if f['proxy']:
-            opts.add_argument('--proxy-server=%s' % f['proxy'])
-
-        try:
-            driver = webdriver.Chrome(chrome_options=opts)
-        except Exception as e:
-            print('\n[#] Error [#]: Error while using chromedriver.\n\n'
-                  'These are some possible solutions for this issue:\n\n'
-                  '- Please install/update chormedriver.'
-                  ' Check out this link for help: https://developers.'
-                  'supportbee.com/blog/setting-up-cucumber-to-run'
-                  '-with-Chrome-on-Linux/\n- Do not run the tool as root '
-                  'user, like is described in this issue: https://github.com'
-                  '/anarcoder/google_explorer/issues/2\n\n')
-            print(str(e))
-            sys.exit(1)
-        driver.wait = WebDriverWait(driver, 90)
-        return driver
+            try:
+                driver = webdriver.Chrome(chrome_options=opts)
+                driver.wait = WebDriverWait(driver, 90)
+                return driver
+            except Exception as e:
+                print('[#] Error with chromedriver')
+                print('[#] Install chromedriver or upgrade/downgrade it!')
+                print(str(e))
 
     def go_to_advanced_search_page(self):
         time.sleep(2)
@@ -353,6 +349,18 @@ class GoogleScanner:
         filters = dict((key, value) for key, value in f.items())
         if any(x is not None for x in filters.values()):
             self.apply_filters()
+
+        # Preparing url to show more results
+        driver.get(driver.current_url + '&num=100')
+        time.sleep(1)
+
+        # Checking if msg of omitting results is showed
+        try:
+            driver.wait.until(EC.presence_of_element_located((
+                By.XPATH, "//*[@id='ofr']//a[@href]"))).click()
+        except Exception as e:
+            print('deu merda')
+            pass
 
         self.result_parser()
         time.sleep(5)

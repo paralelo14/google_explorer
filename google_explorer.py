@@ -1,10 +1,10 @@
 """
 Usage:
     google_explorer.py --dork=<arg> --browser=<arg> [--language=<arg>]
-                                                    [--location=<arg>]
-                                                    [--last_update=<arg>]
+					            [--location=<arg>]
+						    [--last_update=<arg>]
                                                     [--google_domain=<arg>]
-                                                    [--proxy=<arg>]
+					            [--proxy=<arg>]
     google_explorer.py --plugin=<arg>
     google_explorer.py --help
     google_explorer.py --version
@@ -119,48 +119,63 @@ class GoogleScanner:
         browser = self.browser
         browser_path = ''
         f = self.filters
+        driver = ''
 
-        browsers_names = ['chrome', 'chromium', 'firefox']
+        browsers_names = ['firefox', 'chrome', 'chromium']
+        browsers_paths = {}
+        binarys_path = '/usr/bin/'
 
-        if browser not in browsers_names:
+        for file in os.listdir(binarys_path):
+            for br in browsers_names:
+                if br in file:
+                    browsers_paths[br] = binarys_path + file
+
+        if browser not in browsers_paths.keys():
             print('[###] No option for this browser [###]\n')
             print('Your current options are: \n')
-            for b in browsers_names:
+            for b in browsers_paths.keys():
                 print('- ' + b)
             print("\nIf you dont have any of them sorry for you =)..\n")
             sys.exit(1)
 
-        if browser == 'chromium':
-            browser_path = '/usr/bin/chromium-browser'
-
-        if browser == 'chrome':
-            browser_path = '/usr/bin/google-chrome-stable'
-
-        if browser == 'firefox':
-            browser_path = '/usr/bin/firefox'
-
-        opts = Options()
-        opts.binary_location = browser_path
-
-        if f['proxy']:
-            opts.add_argument('--proxy-server=%s' % f['proxy'])
-
-        try:
-            #driver = webdriver.Chrome(chrome_options=opts)
-            driver = webdriver.Firefox()
-        except Exception as e:
-            print('\n[#] Error [#]: Error while using chromedriver.\n\n'
-                  'These are some possible solutions for this issue:\n\n'
-                  '- Please install/update chormedriver.'
-                  ' Check out this link for help: https://developers.'
-                  'supportbee.com/blog/setting-up-cucumber-to-run'
-                  '-with-Chrome-on-Linux/\n- Do not run the tool as root '
-                  'user, like is described in this issue: https://github.com'
-                  '/anarcoder/google_explorer/issues/2\n\n')
-            print(str(e))
-            sys.exit(1)
-        driver.wait = WebDriverWait(driver, 90)
-        return driver
+        if 'firefox' in browser:
+            if f['proxy']:
+                profile = webdriver.FirefoxProfile()
+                profile.set_preference("network.proxy.type", 1)
+                profile.set_preference("network.proxy.socks", f['proxy'].split(':')[0])
+                profile.set_preference("network.proxy.socks_port", int(f['proxy'].split(':')[1]))
+                profile.update_preferences()
+                try:
+                    driver = webdriver.Firefox(firefox_profile=profile)
+                    driver.wait = WebDriverWait(driver, 90)
+                    return driver
+                except Exception as e:
+                    print('[#] Error while executing geckodriver')
+                    print('[#] Install geckodriver or upgrade it!')
+                    print(str(e))
+            else:
+                try:
+                    driver = webdriver.Firefox()
+                    driver.wait = WebDriverWait(driver, 90)
+                    return driver
+                except Exception as e:
+                    print('[#] Error while executing geckodriver')
+                    print('[#] Install geckodriver or upgrade it!')
+                    print(str(e))
+        else:
+            opts = Options()
+            opts.binary_location = browsers_paths[browser]
+            
+            if f['proxy']:
+                opts.add_argument('--proxy-server=socks5://%s' % f['proxy'])
+            
+            try:
+                driver = webdriver.Chrome(chrome_options=opts)
+                driver.wait = WebDriverWait(driver, 90)
+                return driver
+            except:
+                print('[#] Error with chromedriver')
+                print('[#] Install chromedriver or upgrade/downgrade it!')
 
     def go_to_advanced_search_page(self):
         time.sleep(2)
@@ -353,8 +368,14 @@ class GoogleScanner:
         except Exception as e:
             sys.exit(1)
 
+        # Apply filters in arguments if necessary
+        filters = dict((key, value) for key, value in f.items())
+        if any(x is not None for x in filters.values()):
+            self.apply_filters()
+
         # Preparing url to show more results
         driver.get(driver.current_url+'&num=100')
+        time.sleep(1)
 
         # Checking if msg of omitting results is showed
         try:
@@ -364,10 +385,6 @@ class GoogleScanner:
             print('deu merda')
             pass
 
-        # Apply filters in arguments if necessary
-        filters = dict((key, value) for key, value in f.items())
-        if any(x is not None for x in filters.values()):
-            self.apply_filters()
 
         self.result_parser()
         time.sleep(5)

@@ -1,10 +1,10 @@
 """
 Usage:
     google_explorer.py --dork=<arg> --browser=<arg> [--language=<arg>]
-					            [--location=<arg>]
-						    [--last_update=<arg>]
+                                                    [--location=<arg>]
+                                                    [--last_update=<arg>]
                                                     [--google_domain=<arg>]
-					            [--proxy=<arg>]
+                                                    [--proxy=<arg>]
     google_explorer.py --plugin=<arg>
     google_explorer.py --help
     google_explorer.py --version
@@ -78,36 +78,11 @@ class GoogleScanner:
 
     @staticmethod
     def banner():
-        os.system('clear')
-        print("\033[34m          .,:::.")
-        print("\033[34m        ,,::::::,:`                                                     \033[32m:;;,")
-        print("\033[34m      ,:,:,,::,,::::                                                    \033[32m:;;:")
-        print("\033[34m     :,,,:,.  `,:,,,,                                                   \033[32m:;;:")
-        print("\033[34m    :,,,:        ,,,                                                    \033[32m:;;:")
-        print("\033[34m   ,::,,          `                                                     \033[32m:;;:")
-        print("\033[34m   ::,,                                                                 \033[32m:;;,")
-        print("\033[34m  .:::                                                                  \033[32m:;;,")
-        print("\033[34m  ::,,                       \033[31m`:::,`          \033[33m`,,,.`          \033[34m.,:,       \033[32m:;;,     \033[31m`:::,")
-        print("\033[34m  :::                      \033[31m`;;;;;:;;       \033[33m.:::::::,       \033[34m.:,::,:,:,:  \033[32m:;;:   \033[31m`;:;;;;:.")
-        print("\033[34m  :,:        ..........`  \033[31m`;;:::;;;;;`    \033[33m.:::::::::,`    \033[34m,::,,::,:,::  \033[32m:;;:  \033[31m`;;;;;;;;;,")
-        print("\033[34m  :::        ::,:,,::::,  \033[31m;;;;`  .;;;;   \033[33m`:::,```.:::,   \033[34m`,,,,   ,,:,:  \033[32m:;;:  \033[31m;;;:`  .:;;`")
-        print("\033[34m  :,:        ::,::,,,::, \033[31m:::;     `;;;,  \033[33m,::,     `:::`  \033[34m,,:,     ,:::  \033[32m:;;, \033[31m.;;:     ,;;;")
-        print("\033[34m  :,:        ,,,,,,,,,:, \033[31m;;;`      .::: \033[33m`::,       .::, \033[34m`:,:       :,:  \033[32m:;;, \033[31m:;;`   ,;;;:;")
-        print("\033[34m  :,:,              ,:,.\033[31m`;;;        ;;: \033[33m.::,       `::: \033[34m,::,       ,::  \033[32m:;;: \033[31m;;; `:;;;;;.")
-        print("\033[34m  .,::              ::: \033[31m`;:;        :;; \033[33m.::,        ,:, \033[34m,::.       ,,:  \033[32m:;;: \033[31m;;;;;;;::`")
-        print("\033[34m   :,:,            .::: \033[31m`;;;        ;;; \033[33m.::,       `::, \033[34m,::,       ,,:  \033[32m:;;: \033[31m;;;;;;,")
-        print("\033[34m   ,,,:.          `:,,.  \033[31m:;;`      `;;; \033[33m`:::       .::, \033[34m`::,       :,,  \033[32m:;;: \033[31m;;;;`")
-        print("\033[34m    :::::        .,,,:   \033[31m:;;;      ::::  \033[33m,::,     `,::`  \033[34m,::.     .:::  \033[32m:;;, \033[31m.;;:      :,")
-        print("\033[34m     ::,,::`  `,:,::,     \033[31m;;;;`  `;:;:   \033[33m`:::,`  .:::,   \033[34m.,:,,   ,,,::  \033[32m:;;:  \033[31m;;:;`  `;;;;")
-        print("\033[34m      ,:,:,::,,:,,::      \033[31m.;;::;:;:::`    \033[33m.::::::::::`    \033[34m,:,,,:,:::,:  \033[32m:;;:  \033[31m`;;:;:;:;;;.")
-        print("\033[34m       `:::::,,:,,.        \033[31m`;:;;;;;;`      \033[33m.:::::::,`      \033[34m,,,,:,,,:,,  \033[32m:;;,    \033[31m:;;;;;;;`")
-        print("\033[34m          .::::,`            \033[31m`::;:`          \033[33m.,,,,`          \033[34m,:::` :::  \033[32m````     \033[31m`:;;;.")
-        print("                                                                   \033[34m:,:")
-        print("                                                          \033[34m,,       ,,:")
-        print("                   \033[0meXPloReR - v0.1 - 2016                \033[34m::,:     ,::,")
-        print("                \033[0manarcoder at protonmail.com               \033[34m,,:,,.,:,::")
-        print("                \033[0m    github.com/anarcoder                  \033[34m`:,,:,:,,,`")
-        print("                                                            \033[34m::::,:,\033[0m")
+        with open('utils/banner.txt') as f:
+            os.system('clear')
+            for line in f.readlines():
+                print(line.rstrip())
+            print('\n')
 
     def __init__(self, dork, browser, filters):
         self.dork = dork
@@ -117,7 +92,6 @@ class GoogleScanner:
 
     def validate_browser(self):
         browser = self.browser
-        browser_path = ''
         f = self.filters
         driver = ''
 
@@ -142,8 +116,10 @@ class GoogleScanner:
             if f['proxy']:
                 profile = webdriver.FirefoxProfile()
                 profile.set_preference("network.proxy.type", 1)
-                profile.set_preference("network.proxy.socks", f['proxy'].split(':')[0])
-                profile.set_preference("network.proxy.socks_port", int(f['proxy'].split(':')[1]))
+                profile.set_preference("network.proxy.socks",
+                                       f['proxy'].split(':')[0])
+                profile.set_preference("network.proxy.socks_port",
+                                       int(f['proxy'].split(':')[1]))
                 profile.update_preferences()
                 try:
                     driver = webdriver.Firefox(firefox_profile=profile)
@@ -165,17 +141,18 @@ class GoogleScanner:
         else:
             opts = Options()
             opts.binary_location = browsers_paths[browser]
-            
+
             if f['proxy']:
                 opts.add_argument('--proxy-server=socks5://%s' % f['proxy'])
-            
+
             try:
                 driver = webdriver.Chrome(chrome_options=opts)
                 driver.wait = WebDriverWait(driver, 90)
                 return driver
-            except:
+            except Exception as e:
                 print('[#] Error with chromedriver')
                 print('[#] Install chromedriver or upgrade/downgrade it!')
+                print(str(e))
 
     def go_to_advanced_search_page(self):
         time.sleep(2)
@@ -374,7 +351,7 @@ class GoogleScanner:
             self.apply_filters()
 
         # Preparing url to show more results
-        driver.get(driver.current_url+'&num=100')
+        driver.get(driver.current_url + '&num=100')
         time.sleep(1)
 
         # Checking if msg of omitting results is showed
@@ -384,7 +361,6 @@ class GoogleScanner:
         except Exception as e:
             print('deu merda')
             pass
-
 
         self.result_parser()
         time.sleep(5)

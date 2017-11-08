@@ -120,7 +120,7 @@ class GoogleScanner:
         browser_path = ''
         f = self.filters
 
-        browsers_names = ['chrome', 'chromium']
+        browsers_names = ['chrome', 'chromium', 'firefox']
 
         if browser not in browsers_names:
             print('[###] No option for this browser [###]\n')
@@ -131,10 +131,13 @@ class GoogleScanner:
             sys.exit(1)
 
         if browser == 'chromium':
-            browser_path = '/usr/bin/chromium'
+            browser_path = '/usr/bin/chromium-browser'
 
         if browser == 'chrome':
             browser_path = '/usr/bin/google-chrome-stable'
+
+        if browser == 'firefox':
+            browser_path = '/usr/bin/firefox'
 
         opts = Options()
         opts.binary_location = browser_path
@@ -143,7 +146,8 @@ class GoogleScanner:
             opts.add_argument('--proxy-server=%s' % f['proxy'])
 
         try:
-            driver = webdriver.Chrome(chrome_options=opts)
+            #driver = webdriver.Chrome(chrome_options=opts)
+            driver = webdriver.Firefox()
         except Exception as e:
             print('\n[#] Error [#]: Error while using chromedriver.\n\n'
                   'These are some possible solutions for this issue:\n\n'
@@ -348,6 +352,17 @@ class GoogleScanner:
                 By.XPATH, "//*[@id='nav']")))
         except Exception as e:
             sys.exit(1)
+
+        # Preparing url to show more results
+        driver.get(driver.current_url+'&num=100')
+
+        # Checking if msg of omitting results is showed
+        try:
+            driver.wait.until(EC.presence_of_element_located((
+                By.XPATH, "//*[@id='ofr']//a[@href]"))).click()
+        except Exception as e:
+            print('deu merda')
+            pass
 
         # Apply filters in arguments if necessary
         filters = dict((key, value) for key, value in f.items())

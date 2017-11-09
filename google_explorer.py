@@ -68,7 +68,6 @@ from selenium.webdriver.support import expected_conditions as EC
 from selenium.webdriver.common.keys import Keys
 from selenium.webdriver.chrome.options import Options
 from selenium.webdriver.support.ui import WebDriverWait
-import selenium.webdriver.support.ui as ui
 
 
 filter_names = ['language', 'location', 'last_update',
@@ -271,7 +270,7 @@ class GoogleScanner:
         check_page = self.check_page_loaded()
         while check_page is None:
             check_page = self.check_page_loaded()
-       
+
         # Html parser and check if have a next page on pagination
         try:
             # Time splicit because of bug waiting to element using selenium time
@@ -360,12 +359,6 @@ class GoogleScanner:
         # Preparing url to show more results
         driver.get(driver.current_url + '&num=100')
         time.sleep(1)
-
-        # Checking if msg of omitting results is showed
-        #try:
-        #    driver.find_element_by_xpath("//*[@id='ofr']//a[@href]").click()
-        #except Exception as e:
-        #    pass
 
         self.result_parser()
         time.sleep(5)

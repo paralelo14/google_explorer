@@ -34,7 +34,7 @@ class ApacheStruts2_CVE_2017_5638():
         url_lists = []
         for url in results:
             try:
-                vuln = ['.action', '.do']
+                vuln = ['.action', '.do', 'go']
                 for v in vuln:
                     if v in url:
                         urlp = url.split(v)[0]

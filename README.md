@@ -31,6 +31,7 @@ Required options:
     --dork='google dork'                     your favorite g00gle dork :)
     --browser='browser'                      chrome
                                              chromium
+                                             firefox
     --plugin='plugins filters list'          joomla_cve_2015_8562
                                              wordpress_cve_2015_1579
                                              joomla_cve_2016_8870
@@ -80,14 +81,16 @@ This project is developed in PYTHON 3.6 Make sure u use pip3 (package: python3-p
     $ sudo pip3 install -r requirements
 
 
-Make sure u have installed chromedriver, if you don't have this tutorial can help:
+Make sure u have installed chromedriver(chrome and chromium) or geckodriver(firefox), if you don't have this tutorial can help:
 
     https://developers.supportbee.com/blog/setting-up-cucumber-to-run-with-Chrome-on-Linux/
     
     !!Install this version for stability: http://chromedriver.storage.googleapis.com/index.html?path=2.24/!!
 
+The same commands for creating symbolic links can be used for geckodriver (firefox) install.
 
-In some distro, i had some issues with users running chrome as root.. **TO AVOID ISSUES, RUN THE TOOL AS REGULAR USER!!**
+
+In some distro, i had some issues with users running browser driver as root.. **TO AVOID ISSUES, RUN THE TOOL AS REGULAR USER!!**
 
 
 
@@ -105,15 +108,6 @@ Run the exploit filter for the specific vulnerability u are looking for, to chec
     $ python3 google_explorer.py --plugin='joomla_cve_2015_8562'
     $ python3 google_explorer.py --plugin='apache_rce_struts2_cve_2017_5638'
     $ python3 google_explorer.py --plugin='exploit filter name from list'
-    
-
-For some exploits i'm making some utils script to help the exploitation. But not ready yet.. :)
-
-Run the exploiter.py (if the original exploit is runned by command line - **READ THE EXPLOIT BEFORE USING IT**):
-
-    $ cd exploits
-
-    $ python2 exploiter.py --file <vuln file>
     
 
 **Exploits**

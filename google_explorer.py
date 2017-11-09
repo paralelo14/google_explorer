@@ -356,10 +356,8 @@ class GoogleScanner:
 
         # Checking if msg of omitting results is showed
         try:
-            driver.wait.until(EC.presence_of_element_located((
-                By.XPATH, "//*[@id='ofr']//a[@href]"))).click()
+            driver.find_element_by_xpath("//*[@id='ofr']//a[@href]").click()
         except Exception as e:
-            print('deu merda')
             pass
 
         self.result_parser()

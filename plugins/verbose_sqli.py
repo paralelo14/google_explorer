@@ -88,18 +88,18 @@ class Sqli_Finder():
                 headers = {'User-Agent': 'Mozilla/5.0 (X11; Ubuntu; '
                            'Linux x86_64; rv:41.0) Gecko/20100101 '
                            'Firefox/41.0'}
-                try:
-                    req = get(url, headers=headers, verify=False, timeout=25)
-                    with open('sqli_sites.txt','a+') as f:
-                        for error in ERROR_RGX:
-                            match = error.search(req.content.decode('utf-8'))
-                            if match:
-                                f.write(url+'\n')
-                                match_res = match.group(0)
-                                print('[+] {0} \033[31mPossible Vulnerable!!\033[33m error exposed..\033[39m'.format(url))
-
-                except Exception as e:
-                    q.task_done()
+                if url not in checked:
+                    try:
+                        req = get(url, headers=headers, verify=False, timeout=25)
+                        with open('sqli_sites.txt','a+') as f:
+                            for error in ERROR_RGX:
+                                match = error.search(req.content.decode('utf-8'))
+                                if match:
+                                    f.write(url+'\n')
+                                    match_res = match.group(0)
+                                    print('[+] {0} \033[31mPossible Vulnerable!!\033[33m error exposed..\033[39m'.format(url))
+                    except Exception as e:
+                        q.task_done()
                 q.task_done()
 
     def jboss_f(self):

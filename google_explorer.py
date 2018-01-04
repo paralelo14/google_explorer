@@ -193,6 +193,7 @@ class GoogleScanner:
             print("[*] Your current options are: \n")
             for op in options:
                 print(op)
+            self.driver.close()
             sys.exit(1)
 
         for _ in range(options.index(option) + 1):

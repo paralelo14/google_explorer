@@ -23,6 +23,7 @@ Required options:
                                              apache_rce_struts2_cve_2017_5638
                                              jboss_finder
                                              cors_misc
+                                             verbose_sqli.py
 
 Optional options:
     --language='page language'               Portuguese
@@ -54,6 +55,7 @@ Optional options:
 """
 
 import os
+import os.path
 import sys
 import time
 
@@ -191,6 +193,7 @@ class GoogleScanner:
             print("[*] Your current options are: \n")
             for op in options:
                 print(op)
+            self.driver.close()
             sys.exit(1)
 
         for _ in range(options.index(option) + 1):
@@ -380,6 +383,10 @@ def main():
     if pl_filters:
         Plugins(pl_filters)
         sys.exit(0)
+
+    if os.path.exists('results_google_search.txt'):
+        if input('\n*** WARNING ***\n\nThere is old results stored in results file.\nIf you wanna keep them, press "Y": ') != "Y":
+            os.remove('results_google_search.txt')
 
     myScan = GoogleScanner(dork, browser, filters)
     myScan.start_search()

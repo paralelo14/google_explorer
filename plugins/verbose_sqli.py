@@ -57,11 +57,15 @@ class Sqli_Finder():
     def remove_duplicate_targets(self):
         results = [line.rstrip('\n') for line in open(self.filename)]
         url_lists = []
+        path_list = []
         for url in results:
             try:
                 urlp = urlparse(url)
-                urlp = urlp.scheme + '://' + urlp.netloc + urlp.path + '?' + urlp.query
-                url_lists.append(urlp)
+                path = urlp.scheme + '://' + urlp.netloc + urlp.path
+                if path not in path_list:
+                    urlp = urlp.scheme + '://' + urlp.netloc + urlp.path + '?' + urlp.query
+                    url_lists.append(urlp)
+                    path_list.append(path)
             except Exception as e:
                 pass
         url_lists = set(url_lists)
@@ -124,7 +128,6 @@ class Sqli_Finder():
             worker = Thread(target=self.check_vuln, args=(q,))
             worker.setDaemon(True)
             worker.start()
-
         q.join()
 
 

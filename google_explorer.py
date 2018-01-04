@@ -23,6 +23,7 @@ Required options:
                                              apache_rce_struts2_cve_2017_5638
                                              jboss_finder
                                              cors_misc
+                                             verbose_sqli.py
 
 Optional options:
     --language='page language'               Portuguese
@@ -360,12 +361,6 @@ class GoogleScanner:
         # Preparing url to show more results
         driver.get(driver.current_url + '&num=100')
         time.sleep(1)
-
-        # Checking if msg of omitting results is showed
-        #try:
-        #    driver.find_element_by_xpath("//*[@id='ofr']//a[@href]").click()
-        #except Exception as e:
-        #    pass
 
         self.result_parser()
         time.sleep(5)

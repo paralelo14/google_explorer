@@ -55,6 +55,7 @@ Optional options:
 """
 
 import os
+import os.path
 import sys
 import time
 
@@ -383,6 +384,10 @@ def main():
     if pl_filters:
         Plugins(pl_filters)
         sys.exit(0)
+
+    if os.path.exists('results_google_search.txt'):
+        if input('\n*** WARNING ***\n\nThere is old results stored in results file.\nIf you wanna keep them, press "Y": ') != "Y":
+            os.remove('results_google_search.txt')
 
     myScan = GoogleScanner(dork, browser, filters)
     myScan.start_search()

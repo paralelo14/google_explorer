@@ -23,7 +23,7 @@ Required options:
                                              apache_rce_struts2_cve_2017_5638
                                              jboss_finder
                                              cors_misc
-                                             verbose_sqli.py
+                                             verbose_sqli
 
 Optional options:
     --language='page language'               Portuguese

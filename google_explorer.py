@@ -24,6 +24,7 @@ Required options:
                                              jboss_finder
                                              cors_misc
                                              verbose_sqli
+                                             trace_axd
 
 Optional options:
     --language='page language'               Portuguese

@@ -26,7 +26,8 @@ class Plugins():
                   "were found!!\033[0m\n")
             print("The current options are:\n")
             for pl in pl_list:
-                print(pl)
+                if '__' not in pl:
+                    print(pl)
             sys.exit(1)
 
     def run_filter(self):
@@ -34,5 +35,5 @@ class Plugins():
             for pl in self.exploits:
                 pl_path = os.path.join(PATH + '/' + pl + '.py')
                 os.system('python3 ' + pl_path)
-        except:
+        except Exception as e:
             pass

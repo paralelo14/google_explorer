@@ -292,7 +292,6 @@ class GoogleScanner:
             content = self.driver.page_source
             options = lh.fromstring(content)
             results = [link for link in options.xpath(links_xpath)]
-            print(results)
 
             self.write_results_to_file(results, 'results_google_search.txt')
 

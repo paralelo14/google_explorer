@@ -39,6 +39,10 @@ Required options:
                                              jboss_finder
                                              cors_misc
                                              verbose_sqli
+                                             trace_axd
+                                             drupalgeddonrce2
+                                             joomla_joomanage
+
 
 Optional options:
 

@@ -26,7 +26,7 @@ class Plugins():
                   "were found!!\033[0m\n")
             print("The current options are:\n")
             for pl in pl_list:
-                if '__' not in pl:
+                if '__' not in pl and 'pl_filter' not in pl:
                     print(pl)
             sys.exit(1)
 

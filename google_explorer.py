@@ -25,6 +25,7 @@ Required options:
                                              cors_misc
                                              verbose_sqli
                                              trace_axd
+                                             drupalgeddonrce2
 
 Optional options:
     --language='page language'               Portuguese

@@ -5,9 +5,10 @@
 
 **[+] Google Mass Explorer (PYTHON 3.6)**
 
-This is a automated robot for google search engine.
+This is a automated robot for google search engine and a massive exploitation tool.
 
-Make a google search, and parse the results for a especific exploit you define.
+Make a google search and run a specific --plugin on the results. The dork you use is the key for success ;) .
+
 The options can be listed with --help parameter.
 
 Usage:
@@ -26,12 +27,15 @@ Options:
     -h --help                                Open help menu
     -v --version                             Show version
 
-Required options:
+Required options for search:
 
     --dork='google dork'                     your favorite g00gle dork :)
     --browser='browser'                      chrome
                                              chromium
                                              firefox
+
+Required option for massive exploitation:
+
     --plugin='plugins filters list'          joomla_cve_2015_8562
                                              wordpress_cve_2015_1579
                                              joomla_cve_2016_8870
@@ -44,7 +48,7 @@ Required options:
                                              joomla_joomanage
 
 
-Optional options:
+Optional options for the search:
 
     --language='page language'               Portuguese
                                              English

@@ -144,14 +144,13 @@ class GoogleScanner:
                     print('[#] Install geckodriver or upgrade it!')
                     print(str(e))
         else:
-            opts = Options()
-            opts.binary_location = browsers_paths[browser]
 
+            opts = Options()
             if f['proxy']:
                 opts.add_argument('--proxy-server=socks5://%s' % f['proxy'])
 
             try:
-                driver = webdriver.Chrome(chrome_options=opts)
+                driver = webdriver.Chrome(browsers_paths[browser],chrome_options=opts)
                 driver.wait = WebDriverWait(driver, 90)
                 return driver
             except Exception as e:

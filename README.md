@@ -87,7 +87,7 @@ Install these packages:
 
 This project is developed in PYTHON 3.6 Make sure u use pip3 (package: python3-pip) to install dep:
 
-    $ sudo pip3 install -r requirements
+    $ pip3 install --user -r requirements.txt
 
 
 Make sure u have installed chromedriver(chrome and chromium) and geckodriver(firefox).

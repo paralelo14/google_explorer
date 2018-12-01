@@ -90,13 +90,7 @@ This project is developed in PYTHON 3.6 Make sure u use pip3 (package: python3-p
     $ sudo pip3 install -r requirements
 
 
-Make sure u have installed chromedriver(chrome and chromium) or geckodriver(firefox), if you don't have this tutorial can help:
-
-    https://developers.supportbee.com/blog/setting-up-cucumber-to-run-with-Chrome-on-Linux/
-    
-    !!Install this version for stability: http://chromedriver.storage.googleapis.com/index.html?path=2.24/!!
-
-The same commands for creating symbolic links can be used for geckodriver (firefox) install.
+Make sure u have installed chromedriver(chrome and chromium) and geckodriver(firefox).
 
 
 In some distro, i had some issues with users running browser driver as root.. **TO AVOID ISSUES, RUN THE TOOL AS REGULAR USER!!**

